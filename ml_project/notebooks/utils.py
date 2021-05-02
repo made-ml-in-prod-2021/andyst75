@@ -10,13 +10,16 @@ COLUMNS_NEW_DESC = {'age': 'Age', 'sex': 'Sex', 'cp': 'Chest_pain',
                     'thal': 'Thalassemia_types', 'target': 'Heart_attack',
                     'slope': 'ST_slope'}
 
-DUMMY_COLUMNS = ['Chest_pain', 'Thalassemia_types', 'ECG_results', 'ST_slope', 'Major_vessels']
-
-DROPPED_COLUMNS = ['Sex', 'Fasting_blood_sugar', 'Heart_attack', 'Chest_pain', 'ECG_results',
-                   'Exercise_induced_angina', 'ST_slope', 'ST_depression', 'Major_vessels',
-                   'Thalassemia_types']
-
 TARGET_COLUMN = 'Heart_attack'
+
+NUM_COLUMNS = ['Age', 'Sex', 'Resting_blood_pressure', 'Cholesterol', 'Fasting_blood_sugar',
+               'Maximum_heart_rate', 'Exercise_induced_angina', 'ST_depression']
+CAT_COLUMNS = ['Chest_pain', 'Thalassemia_types', 'ECG_results', 'ST_slope', 'Major_vessels']
+
+# DROPPED_COLUMNS = ['Sex', 'Fasting_blood_sugar', 'Heart_attack', 'Chest_pain', 'ECG_results',
+#                    'Exercise_induced_angina', 'ST_slope', 'ST_depression', 'Major_vessels',
+#                    'Thalassemia_types']
+
 
 def build_heatmap_analysis(df: pd.DataFrame, 
                            groupby_list: List[str],
