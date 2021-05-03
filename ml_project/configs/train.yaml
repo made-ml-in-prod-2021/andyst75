@@ -1,0 +1,9 @@
+defaults:
+  - models: random_forest
+  - features: 5cat_8num
+  - split: train80_seed5
+
+input_data_path: "data/raw/heart.csv"
+output_model_path: "models/model.pkl"
+metric_path: "models/metrics.json"
+

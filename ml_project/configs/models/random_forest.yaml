@@ -1,0 +1,18 @@
+# @package _group_
+_target_: "sklearn.ensemble.RandomForestClassifier"
+model_parameters:
+  "criterion": "gini"
+  "max_features": "log2"
+  "n_estimators": 150
+  "random_state": 111
+
+transforms:
+  numerical_transform:
+    _target_: "sklearn.preprocessing.MinMaxScaler"
+  numerical_parameters:
+      copy: True
+  categorical_transform:
+    _target_: "sklearn.preprocessing.OneHotEncoder"
+  categorical_parameters:
+      handle_unknown: "ignore"
+      sparse: False

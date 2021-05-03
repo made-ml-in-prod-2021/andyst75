@@ -1,0 +1,16 @@
+# @package _group_
+train_params:
+  model_type: "sklearn.naive_bayes.MultinomialNB"
+  model_parameters:
+    "alpha": 1.5
+
+transforms:
+  numerical:
+    estimator: "sklearn.preprocessing.MinMaxScaler"
+    parameters:
+      copy: True
+  categorical:
+    estimator: "sklearn.preprocessing.OneHotEncoder"
+    parameters:
+      handle_unknown: "ignore"
+      sparse: False
