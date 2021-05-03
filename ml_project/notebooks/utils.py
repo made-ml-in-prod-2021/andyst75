@@ -50,7 +50,7 @@ def search_best_parameters(estimator: BaseEstimator, parameters: dict,
     """ Find optimal parameters for estimator """
 
     model_cv = GridSearchCV(estimator, parameters,
-                            scoring='neg_mean_squared_error', cv=folds,
+                            scoring='f1', cv=folds,
                             n_jobs=n_jobs)
     model_cv.fit(x_train, y_train)
     return model_cv.best_params_
