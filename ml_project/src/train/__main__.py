@@ -1,7 +1,7 @@
 import os
 import logging
 import hydra
-from omegaconf import OmegaConf
+# from omegaconf import OmegaConf
 
 from ..data.data_transformer import DatasetTransformer
 from ..data import read_data, check_data, split_train_val_data
@@ -33,6 +33,8 @@ def train_pipeline(cfg: hydra.utils.DictConfig) -> None:
 
     trans = DatasetTransformer(cfg.features, cfg.models.transforms)
     trans.fit(train_df)
+    tmp_df = trans.transform(train_df)
+    print(tmp_df.shape)
     # print(OmegaConf.to_yaml(cfg.models.transforms))
 
 

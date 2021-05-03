@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 import hydra
 
@@ -20,20 +21,18 @@ class DatasetTransformer(BaseEstimator, TransformerMixin):
         self.numerical = \
             hydra.utils.instantiate(trans_param.numerical_transform,
                                     **trans_param.numerical_parameters)
-        print(type(self.numerical))
 
-    def fit(self, data: pd.DataFrame, target: pd.DataFrame = None):
-        print('cat', self.categorical_features)
-        print('num', self.numerical_features)
-        print(data[self.categorical_features].values.shape)
-        print(data[self.numerical_features].values.shape)
-        print(data.shape)
-
+    def fit(self, data: pd.DataFrame):
         self.categorical.fit(data[self.categorical_features].values)
         self.numerical.fit(data[self.numerical_features].values)
-
         return self
 
-    def transform(self, data: pd.DataFrame, target: pd.DataFrame = None):
-        transformed_data = data.copy()
-        return transformed_data, target
+    def transform(self, data: pd.DataFrame):
+        num_scaler = \
+            self.numerical.transform(
+                data[self.numerical_features].values)
+        cat_ohe = \
+            self.categorical.transform(
+                data[self.categorical_features].values)
+        transformed_data = np.hstack([num_scaler, cat_ohe])
+        return transformed_data
