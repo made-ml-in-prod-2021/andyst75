@@ -3,11 +3,12 @@ import os
 
 import hydra
 
+from ..model import build_model
 from ..classes import ConfigParams
 from ..data import read_data, check_data, split_train_val_data
 from ..data.data_transformer import DatasetTransformer
 
-# from omegaconf import OmegaConf
+from omegaconf import OmegaConf
 
 logger = logging.getLogger(__name__)
 
@@ -31,6 +32,7 @@ def train_pipeline(cfg: ConfigParams) -> None:
 
     # encode params +
     # save params +
+    # make model
     # train model
     # save model
     print(train_df.shape, test_df.shape)
@@ -39,6 +41,11 @@ def train_pipeline(cfg: ConfigParams) -> None:
                                cfg.models.transforms)
     trans.fit(train_df)
     trans.dump(cfg.transform_path)
+
+    print(OmegaConf.to_yaml(cfg.models.model_parameters))
+    model = build_model(cfg.models)
+
+
 
     # tranformed_df = trans.transform(train_df)
 

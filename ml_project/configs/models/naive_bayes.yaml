@@ -1,5 +1,6 @@
 # @package _group_
-_target_: "sklearn.naive_bayes.MultinomialNB"
+model:
+  _target_: "sklearn.naive_bayes.MultinomialNB"
 model_parameters:
   "alpha": 1.5
 

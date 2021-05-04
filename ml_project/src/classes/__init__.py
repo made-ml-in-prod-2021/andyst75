@@ -5,10 +5,12 @@ from .config_params import ConfigParams
 from .transform_estimator import TransformEstimator
 from .transforms_params import TransformParams
 from .transform_path import TransformPath
+from .model_estimator import ModelEstimator
 
 __all__ = ["SplittingParams",
            "FeatureParams",
            "ModelParams",
+           "ModelEstimator",
            "ConfigParams",
            "TransformParams",
            "TransformEstimator",

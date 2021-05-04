@@ -1,5 +1,6 @@
 # @package _group_
-_target_: "sklearn.ensemble.RandomForestClassifier"
+model:
+  _target_: "sklearn.ensemble.RandomForestClassifier"
 model_parameters:
   "criterion": "gini"
   "max_features": "log2"

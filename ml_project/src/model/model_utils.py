@@ -12,7 +12,7 @@ logger = logging.getLogger("model.model_utils")
 
 def build_model(model_params: ModelParams) -> BaseEstimator:
     logger.info("Build model")
-    model = hydra.utils.instantiate(model_params,
+    model = hydra.utils.instantiate(model_params.model,
                                     **model_params.model_parameters)
     return model
 
