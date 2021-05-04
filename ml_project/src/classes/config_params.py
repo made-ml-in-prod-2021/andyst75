@@ -13,7 +13,7 @@ class ConfigParams:
     split: SplittingParams = MISSING
 
     input_data_path: str = field(default="data/raw/heart.csv")
-    output_model_path: str = field(default="models/model.pkl")
+    model_path: str = field(default="models/model.pkl")
 
     transform_path: TransformPath = field(default_factory=TransformPath)
 

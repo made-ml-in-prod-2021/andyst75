@@ -4,7 +4,8 @@ defaults:
   - split: train80_seed5
 
 input_data_path: "data/raw/heart.csv"
-output_model_path: "models/model.pkl"
+model_path: "models/model.pkl"
+
 transform_path:
   numerical: "models/numerical.pkl"
   categorical: "models/categorical.pkl"

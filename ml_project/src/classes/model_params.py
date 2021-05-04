@@ -9,4 +9,4 @@ from .transforms_params import TransformParams
 class ModelParams:
     _target_: BaseEstimator = MISSING
     transforms: TransformParams = MISSING
-    model_parameters: list = field(default_factory=list)
+    model_parameters: dict = field(default_factory=dict)
