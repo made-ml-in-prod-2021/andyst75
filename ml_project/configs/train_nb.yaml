@@ -1,0 +1,12 @@
+defaults:
+  - models: naive_bayes
+  - features: 5cat_8num
+  - split: train80_seed5
+
+input_data_path: "data/raw/heart.csv"
+model_path: "models/model_nb.pkl"
+report_path: "reports/train_nb_rep.yaml"
+
+transform_path:
+  numerical: "models/numerical.pkl"
+  categorical: "models/categorical.pkl"
