@@ -4,6 +4,7 @@ from .model_params import ModelParams
 from .config_params import ConfigParams
 from .transform_estimator import TransformEstimator
 from .transforms_params import TransformParams
+from .transform_path import TransformPath
 
 __all__ = ["SplittingParams",
            "FeatureParams",
@@ -11,4 +12,5 @@ __all__ = ["SplittingParams",
            "ConfigParams",
            "TransformParams",
            "TransformEstimator",
+           "TransformPath",
            ]

@@ -1,3 +1,4 @@
+import os
 import logging
 
 from typing import Tuple, Set
@@ -14,7 +15,15 @@ logger = logging.getLogger("data.dataset")
 def read_data(path: str) -> pd.DataFrame:
     """ Read source data in pandas dataframe """
     logger.info(f"Start reading data from {path}")
-    data = pd.read_csv(make_path(path))
+    data_path = make_path(path)
+
+    if os.path.exists(data_path):
+        data = pd.read_csv(data_path)
+    else:
+        error_msg = f"Data path not exists: { path }"
+        logger.error(error_msg)
+        raise RuntimeError(error_msg)
+
     logger.info(f"Finish read data from {path}")
     return data
 
