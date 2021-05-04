@@ -14,8 +14,6 @@ class ConfigParams:
 
     input_data_path: str = field(default="data/raw/heart.csv")
     model_path: str = field(default="models/model.pkl")
+    report_path: str = field(default="reports/train.yaml")
 
     transform_path: TransformPath = field(default_factory=TransformPath)
-
-    # numerical_transform_path: str = field(default="models/numerical.pkl")
-    # categorical_transform_path: str = field(default="models/numerical.pkl")

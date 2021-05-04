@@ -2,6 +2,8 @@ import os
 import logging
 
 from typing import Tuple, Set
+
+import numpy as np
 import pandas as pd
 
 from sklearn.model_selection import train_test_split
@@ -59,3 +61,4 @@ def split_train_val_data(data: pd.DataFrame, params: SplittingParams)\
     logger.info("Finish splitting data:" +
                 f"train={train_data.shape}, validate={val_data.shape}")
     return train_data, val_data
+
