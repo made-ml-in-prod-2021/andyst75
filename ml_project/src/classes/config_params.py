@@ -1,3 +1,7 @@
+"""
+Dataclass for config parameters (from YAML-file)
+"""
+
 from dataclasses import dataclass, field, MISSING
 
 from .model_params import ModelParams
@@ -8,6 +12,10 @@ from .transform_path import TransformPath
 
 @dataclass()
 class ConfigParams:
+    """
+    Dataclass for YAML config
+    """
+
     models: ModelParams = MISSING
     features: FeatureParams = MISSING
     split: SplittingParams = MISSING

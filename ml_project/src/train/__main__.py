@@ -1,3 +1,6 @@
+"""
+Main module for train models
+"""
 import logging
 import os
 
@@ -24,16 +27,16 @@ def train_pipeline(cfg: ConfigParams) -> None:
 
     logger.info("Start train pipeline")
 
-    df = read_data(cfg.input_data_path)
+    data_df = read_data(cfg.input_data_path)
 
-    check_df, cat_error, num_error = check_data(df, cfg.features)
+    check_df, cat_error, num_error = check_data(data_df, cfg.features)
 
     if not check_df:
         error_msg = f"Some features not found: { {*cat_error, *num_error} }"
         logger.error(error_msg)
         raise RuntimeError(error_msg)
 
-    train_df, test_df = split_train_val_data(df, cfg.split)
+    train_df, test_df = split_train_val_data(data_df, cfg.split)
 
     ft_transforms = DatasetTransformer(cfg.features, cfg.models.transforms)
     ft_transforms.fit(train_df)
@@ -49,7 +52,7 @@ def train_pipeline(cfg: ConfigParams) -> None:
     model.fit(x_train, y_train)
     dump_model(cfg.model_path, model)
 
-    report = build_train_report(model, x_test, y_test, df, cfg)
+    report = build_train_report(model, x_test, y_test, data_df, cfg)
 
     logger.info(f"Accuracy: {report.accuracy:.4f}, " +
                 f"F1 metric: {report.f1_metric:.4f}")
@@ -58,4 +61,4 @@ def train_pipeline(cfg: ConfigParams) -> None:
 
 
 if __name__ == '__main__':
-    train_pipeline()
+    train_pipeline(None)

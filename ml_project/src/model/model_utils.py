@@ -1,3 +1,6 @@
+"""
+Utils for build, load and dump model
+"""
 import logging
 from typing import NoReturn
 
@@ -13,7 +16,11 @@ logger = logging.getLogger("model.model_utils")
 def build_model(model_params: ModelParams) -> BaseEstimator:
     """ Create instance of model with parameters """
 
-    logger.info("Build model")
+    model_name = model_params.model['_target_']
+    model_parameters = model_params.model_parameters
+    logger.info("Build model %s", model_name)
+    logger.info("Parameters: %s", model_parameters)
+
     model = hydra.utils.instantiate(model_params.model,
                                     **model_params.model_parameters)
     return model

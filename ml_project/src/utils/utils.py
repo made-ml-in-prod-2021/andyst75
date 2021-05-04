@@ -23,8 +23,8 @@ def dump_object(path: str, obj: object) -> NoReturn:
     Dump object into file
     """
     data_path = make_path(path)
-    with open(data_path, "wb") as f:
-        pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
+    with open(data_path, "wb") as filename:
+        pickle.dump(obj, filename, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 def load_object(path: str) -> object:
@@ -32,6 +32,6 @@ def load_object(path: str) -> object:
     Load object from file
     """
     data_path = make_path(path)
-    with open(data_path, "rb") as f:
-        obj = pickle.load(f)
+    with open(data_path, "rb") as filename:
+        obj = pickle.load(filename)
     return obj

@@ -1,3 +1,7 @@
+"""
+Module for create training report
+"""
+
 import logging
 
 import numpy as np
@@ -15,7 +19,7 @@ logger = logging.getLogger("train.make_report")
 def build_train_report(model: BaseEstimator,
                        x_test: np.ndarray,
                        y_test: np.ndarray,
-                       df: pd.DataFrame,
+                       data_df: pd.DataFrame,
                        cfg: ConfigParams) -> ModelReport:
     """ Build and write training report in yaml format """
 
@@ -28,7 +32,7 @@ def build_train_report(model: BaseEstimator,
     logger.debug("Create model report")
     report = ModelReport(cfg.models, cfg.split)
     report.data = cfg.input_data_path
-    report.rows = df.shape[0]
+    report.rows = data_df.shape[0]
     report.accuracy = float(accuracy)
     report.f1_metric = float(f1_metric)
 
@@ -36,8 +40,8 @@ def build_train_report(model: BaseEstimator,
     yaml_report = OmegaConf.to_yaml(report)
 
     logger.debug("Write report")
-    with open(make_path(cfg.report_path), "w") as f:
-        f.writelines(yaml_report)
+    with open(make_path(cfg.report_path), "w") as yaml_file:
+        yaml_file.writelines(yaml_report)
 
     logger.info("Finish build training report")
 

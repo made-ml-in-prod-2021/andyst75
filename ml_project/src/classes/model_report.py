@@ -1,12 +1,20 @@
+"""
+Dataclass for create model training report
+"""
+
 import datetime
 from dataclasses import dataclass, field, MISSING
-from typing import Dict, Any
 
-from ..classes import SplittingParams, ModelParams
+from .split_params import SplittingParams
+from .model_params import ModelParams
 
 
 @dataclass()
-class ModelReport(Dict[str, Any]):
+class ModelReport:
+    """
+    Dataclass for create model training report
+    """
+
     model: ModelParams = MISSING
     split: SplittingParams = MISSING
     data: str = field(default="data.csv")

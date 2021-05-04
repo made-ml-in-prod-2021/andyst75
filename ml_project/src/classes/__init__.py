@@ -1,3 +1,6 @@
+"""
+Dataclasses
+"""
 from .split_params import SplittingParams
 from .feature_params import FeatureParams
 from .model_params import ModelParams
