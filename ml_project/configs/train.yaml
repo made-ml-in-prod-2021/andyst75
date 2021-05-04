@@ -6,6 +6,7 @@ defaults:
 input_data_path: "data/raw/heart.csv"
 model_path: "models/model.pkl"
 report_path: "reports/train_rep.yaml"
+log_path: "configs/log_config.yaml"
 
 transform_path:
   numerical: "models/numerical.pkl"

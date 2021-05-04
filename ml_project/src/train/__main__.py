@@ -1,11 +1,13 @@
 """
 Main module for train models
 """
-import logging
+import logging.config
 import os
 
 import hydra
+import yaml
 
+from ..utils import make_path
 from .make_report import build_train_report
 from ..classes import ConfigParams
 from ..data import read_data, check_data, split_train_val_data
@@ -24,6 +26,10 @@ def train_pipeline(cfg: ConfigParams) -> None:
     For run with custom parameters usage --config-name=config_name and
     --config-path=config_path (absolute or relative)
     """
+
+    log_path = make_path(cfg.log_path)
+    with open(log_path, "r") as log_config:
+        logging.config.dictConfig(yaml.safe_load(log_config))
 
     logger.info("Start train pipeline")
 
