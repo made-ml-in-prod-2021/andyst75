@@ -1,11 +1,8 @@
-import os
 import logging
-
+import os
 from typing import Tuple, Set
 
-import numpy as np
 import pandas as pd
-
 from sklearn.model_selection import train_test_split
 
 from ..classes import SplittingParams, FeatureParams
@@ -22,7 +19,7 @@ def read_data(path: str) -> pd.DataFrame:
     if os.path.exists(data_path):
         data = pd.read_csv(data_path)
     else:
-        error_msg = f"Data path not exists: { path }"
+        error_msg = f"Data path not exists: {path}"
         logger.error(error_msg)
         raise RuntimeError(error_msg)
 
@@ -48,7 +45,7 @@ def check_data(df: pd.DataFrame, features: FeatureParams) -> \
             numerical)
 
 
-def split_train_val_data(data: pd.DataFrame, params: SplittingParams)\
+def split_train_val_data(data: pd.DataFrame, params: SplittingParams) \
         -> Tuple[pd.DataFrame, pd.DataFrame]:
     """ Split pandas dataframe to training and validate data """
 
@@ -61,4 +58,3 @@ def split_train_val_data(data: pd.DataFrame, params: SplittingParams)\
     logger.info("Finish splitting data:" +
                 f"train={train_data.shape}, validate={val_data.shape}")
     return train_data, val_data
-

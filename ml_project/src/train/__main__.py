@@ -4,10 +4,10 @@ import os
 import hydra
 
 from .make_report import build_train_report
-from ..model import build_model, dump_model
 from ..classes import ConfigParams
 from ..data import read_data, check_data, split_train_val_data
 from ..data.data_transformer import DatasetTransformer
+from ..model import build_model, dump_model
 
 logger = logging.getLogger(__name__)
 
@@ -15,6 +15,15 @@ logger = logging.getLogger(__name__)
 @hydra.main(config_path=os.path.join("..", "..", "configs"),
             config_name="train")
 def train_pipeline(cfg: ConfigParams) -> None:
+    """
+    Main train pipeline.
+    Parameters read from YAML-file.
+    For run with custom parameters usage --config-name=config_name and
+    --config-path=config_path (absolute or relative)
+    """
+
+    logger.info("Start train pipeline")
+
     df = read_data(cfg.input_data_path)
 
     check_df, cat_error, num_error = check_data(df, cfg.features)

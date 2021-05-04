@@ -1,10 +1,11 @@
 """
 Supply function
 """
-from typing import NoReturn
 import os
-import hydra
 import pickle
+from typing import NoReturn
+
+import hydra
 
 
 def make_path(path: str) -> str:
@@ -28,7 +29,7 @@ def dump_object(path: str, obj: object) -> NoReturn:
 
 def load_object(path: str) -> object:
     """
-    Load object froms file
+    Load object from file
     """
     data_path = make_path(path)
     with open(data_path, "rb") as f:

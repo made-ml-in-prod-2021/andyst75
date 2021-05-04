@@ -2,8 +2,6 @@ import datetime
 from dataclasses import dataclass, field, MISSING
 from typing import Dict, Any
 
-import numpy as np
-
 from ..classes import SplittingParams, ModelParams
 
 
