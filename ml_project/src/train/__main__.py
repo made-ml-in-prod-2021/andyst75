@@ -62,8 +62,9 @@ def train_pipeline(cfg: ConfigParams = None) -> None:
 
     report = build_train_report(model, x_test, y_test, data_df, cfg)
 
-    logger.info(f"Accuracy: {report.accuracy:.4f}, " +
-                f"F1 metric: {report.f1_metric:.4f}")
+    report_text = \
+        f"Accuracy: {report.accuracy:.4f}, F1 metric: {report.f1_metric:.4f}"
+    logger.info(report_text)
 
     logger.info("Finish train pipeline")
 
