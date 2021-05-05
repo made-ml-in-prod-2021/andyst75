@@ -2,7 +2,7 @@
 Dataclass for create model training report
 """
 
-import datetime
+from datetime import datetime
 from dataclasses import dataclass, field, MISSING
 
 from .split_params import SplittingParams
@@ -21,4 +21,4 @@ class ModelReport:
     rows: int = field(default=0)
     accuracy: float = 0.
     f1_metric: float = 0.
-    date: str = field(default=datetime.datetime.now().isoformat())
+    date: str = field(default=datetime.now().isoformat())
