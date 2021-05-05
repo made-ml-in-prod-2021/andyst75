@@ -1,4 +1,4 @@
-![CI workflow](https://github.com/made-ml-in-prod-2021/andyst75/actions/workflows/CI_homework1.yml/badge.svg?branch=homework1)
+![CI workflow](https://github.com/made-ml-in-prod-2021/andyst75/actions/workflows/homework1.yml/badge.svg?branch=homework1)
 
 ## Homework 1
 Dataset [heart-disease-uci](https://www.kaggle.com/ronitf/heart-disease-uci)
