@@ -14,7 +14,7 @@ from ..data import read_data, check_data, split_train_val_data
 from ..data.data_transformer import DatasetTransformer
 from ..model import build_model, dump_model
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("train.main")
 
 
 @hydra.main(config_path=os.path.join("..", "..", "configs"),
@@ -28,8 +28,10 @@ def train_pipeline(cfg: ConfigParams) -> None:
     """
 
     log_path = make_path(cfg.log_path)
-    with open(log_path, "r") as log_config:
-        logging.config.dictConfig(yaml.safe_load(log_config))
+    if os.path.exists(log_path):
+        with open(log_path, "r") as log_config:
+            log_config = yaml.safe_load(log_config)
+            logging.config.dictConfig(log_config)
 
     logger.info("Start train pipeline")
 
