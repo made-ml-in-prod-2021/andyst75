@@ -17,6 +17,8 @@ or
 
 Code linter: `pylint --output-format=colorized -v src`
 
+Tests: `pytest tests --cov --cov-fail-under=80`
+
 ## Критерии
 
 № | Описание | Баллы
