@@ -1,5 +1,6 @@
-import pytest
 from datetime import datetime
+
+import pytest
 from sklearn.base import BaseEstimator
 
 from src.classes import SplittingParams, FeatureParams, \
@@ -88,7 +89,6 @@ def predict_config_dict(transform_path_dict: dict):
 @pytest.fixture()
 def model_param_dict(base_estimator: BaseEstimator,
                      transform_params_dict: dict):
-
     model = base_estimator
     transforms = TransformParams(**transform_params_dict)
     model_parameters = {'lr': 1e-4}
@@ -103,7 +103,6 @@ def model_param_dict(base_estimator: BaseEstimator,
 @pytest.fixture()
 def model_report_dict(model_param_dict: dict,
                       splitting_dict: dict):
-
     model = ModelParams(**model_param_dict)
     split = SplittingParams(**splitting_dict)
     data = "data.csv"

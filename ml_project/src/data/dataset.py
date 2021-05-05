@@ -24,7 +24,7 @@ def read_data(path: str) -> pd.DataFrame:
     else:
         error_msg = f"Data path not exists: {path}"
         logger.error(error_msg)
-        raise RuntimeError(error_msg)
+        raise FileNotFoundError(error_msg)
 
     logger.info("Finish read data from %s", path)
     return data
