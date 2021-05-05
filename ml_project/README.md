@@ -1,5 +1,19 @@
-## Домашнее задание 1
-Датасат [heart-disease-uci](https://www.kaggle.com/ronitf/heart-disease-uci)
+## Homework 1
+Dataset [heart-disease-uci](https://www.kaggle.com/ronitf/heart-disease-uci)
+
+`python -m src.train`
+or
+`python -m src.train --config-name=train`
+
+
+`python -m src.train --config-name=train_nb`
+
+
+`python -m src.predict` or 
+`python -m src.predict --config-path=configs/predict.yaml`
+`python -m src.predict --config-path=configs/predict_nb.yaml`
+
+Code linter: `pylint --output-format=colorized -v src`
 
 ## Критерии
 
