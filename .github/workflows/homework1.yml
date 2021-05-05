@@ -38,8 +38,8 @@ jobs:
       - name: Lint with flake8
         working-directory: ./ml_project
         run: |
-          flake8 . --count --show-source --statistics
-          flake8 . --count --exit-zero --max-complexity=8 --max-line-length=80 --statistics
+          flake8 . --count --show-source --ignore=E127 --statistics
+          flake8 . --count --exit-zero --ignore=E127 --max-complexity=8 --max-line-length=80 --statistics
 
       - name: Test with pytest
         working-directory: ./ml_project
