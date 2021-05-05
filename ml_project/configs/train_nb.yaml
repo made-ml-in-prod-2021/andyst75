@@ -9,5 +9,5 @@ report_path: "reports/train_nb_rep.yaml"
 log_path: "configs/log_config.yaml"
 
 transform_path:
-  numerical: "models/numerical.pkl"
-  categorical: "models/categorical.pkl"
+  numerical: "models/numerical_nb.pkl"
+  categorical: "models/categorical_nb.pkl"
