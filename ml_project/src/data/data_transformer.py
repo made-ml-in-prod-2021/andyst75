@@ -26,7 +26,7 @@ class DatasetTransformer(BaseEstimator, TransformerMixin):
 
     def __init__(self,
                  feature_param: FeatureParams,
-                 trans_param: TransformParams,
+                 trans_param: TransformParams = None,
                  transform_path: TransformPath = None):
         """
         Load fitted transform if TransformPath is not None

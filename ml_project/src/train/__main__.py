@@ -8,7 +8,7 @@ import hydra
 import yaml
 
 from ..utils import make_path
-from .make_report import build_train_report
+from ..train import build_train_report
 from ..classes import ConfigParams
 from ..data import read_data, check_data, split_train_val_data
 from ..data.data_transformer import DatasetTransformer
@@ -19,7 +19,7 @@ logger = logging.getLogger("train.main")
 
 @hydra.main(config_path=os.path.join("..", "..", "configs"),
             config_name="train")
-def train_pipeline(cfg: ConfigParams) -> None:
+def train_pipeline(cfg: ConfigParams = None) -> None:
     """
     Main train pipeline.
     Parameters read from YAML-file.
@@ -69,4 +69,4 @@ def train_pipeline(cfg: ConfigParams) -> None:
 
 
 if __name__ == '__main__':
-    train_pipeline(None)
+    train_pipeline()
