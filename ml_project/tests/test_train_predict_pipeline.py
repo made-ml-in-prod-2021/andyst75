@@ -25,7 +25,7 @@ def test_data_train_predict_config(tmpdir) -> Tuple[ConfigParams, str, str]:
               "max_features": "log2"
               "n_estimators": 150
               "random_state": 111
-            
+
             transforms:
               numerical_transform:
                 _target_: "sklearn.preprocessing.MinMaxScaler"
@@ -36,7 +36,7 @@ def test_data_train_predict_config(tmpdir) -> Tuple[ConfigParams, str, str]:
               categorical_parameters:
                   handle_unknown: "ignore"
                   sparse: False
-        
+
         features:
             target_col: "target"
             categorical_features:
@@ -54,20 +54,20 @@ def test_data_train_predict_config(tmpdir) -> Tuple[ConfigParams, str, str]:
               - "thalach"
               - "exang"
               - "oldpeak"
-        
+
         split:
             val_size: 0.2
             random_state: 5
-        
+
         input_data_path: "{}"
         model_path: "{}"
         report_path: "{}"
         log_path: "configs/log_test.yaml"
-        
+
         transform_path:
           numerical: "{}"
           categorical: "{}"
-    """)
+""")
 
     df_path = tmpdir.join(FAKE_DATASET_NAME)
     df = make_data(FAKE_DATASET_FULL_SIZE)
