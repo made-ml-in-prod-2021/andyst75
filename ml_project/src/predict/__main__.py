@@ -15,12 +15,6 @@ from .predict_utils import read_config, load_estimator, load_features
 logger = logging.getLogger("predict.main")
 
 
-@click.command()
-@click.option("-c", "--config-path",
-              default="configs/predict.yaml",
-              required=True, show_default=True)
-@click.option("-d", "--data-path", default=None)
-@click.option("-o", "--output-path", default=None)
 def predict(config_path=None, data_path=None, output_path=None) -> NoReturn:
     """
     Predict-pipeline.
@@ -62,5 +56,15 @@ def predict(config_path=None, data_path=None, output_path=None) -> NoReturn:
     logger.info("Finish predict")
 
 
+@click.command()
+@click.option("-c", "--config-path",
+              default="configs/predict.yaml",
+              required=True, show_default=True)
+@click.option("-d", "--data-path", default=None)
+@click.option("-o", "--output-path", default=None)
+def main(config_path=None, data_path=None, output_path=None):
+    predict(config_path, data_path, output_path)
+
+
 if __name__ == "__main__":
-    predict()
+    main()

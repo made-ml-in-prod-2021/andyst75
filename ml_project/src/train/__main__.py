@@ -3,7 +3,7 @@ Main module for train models
 """
 import logging.config
 import os
-from typing import Tuple
+from typing import Tuple, NoReturn
 
 import hydra
 import numpy as np
@@ -48,9 +48,7 @@ def get_data(cfg: ConfigParams) -> \
     return data_df, x_train, y_train, x_test, y_test
 
 
-@hydra.main(config_path=os.path.join("..", "..", "configs"),
-            config_name="train")
-def train_pipeline(cfg: ConfigParams = None) -> None:
+def train_pipeline(cfg: ConfigParams) -> NoReturn:
     """
     Main train pipeline.
     Parameters read from YAML-file.
@@ -81,5 +79,11 @@ def train_pipeline(cfg: ConfigParams = None) -> None:
     logger.info("Finish train pipeline")
 
 
+@hydra.main(config_path=os.path.join("..", "..", "configs"),
+            config_name="train")
+def main(cfg: ConfigParams = None):
+    train_pipeline(cfg)
+
+
 if __name__ == '__main__':
-    train_pipeline()
+    main()
