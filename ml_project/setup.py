@@ -6,16 +6,15 @@ def parse_requirements(path):
         requirements = []
         for line in fin:
             requirements.append(line.strip())
-
     return requirements
 
 
 setup(
-    name="ml_example",
+    name="homework1",
     packages=find_packages(),
     version="0.1.0",
     description="Homework1 on ML in production",
-    author="AndreW Starikov",
-    install_requires=parse_requirements("./requirements/runtime.txt"),
+    author="Andrew Starikov",
+    install_requires=parse_requirements("./requirements.txt"),
     license="MIT",
 )
