@@ -14,8 +14,8 @@ setup(
     name="ml_example",
     packages=find_packages(),
     version="0.1.0",
-    description="Example of ml project",
-    author="Your name (or your organization/company/team)",
+    description="Homework1 on ML in production",
+    author="AndreW Starikov",
     install_requires=parse_requirements("./requirements/runtime.txt"),
     license="MIT",
 )
