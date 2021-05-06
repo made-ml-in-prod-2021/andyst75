@@ -8,7 +8,7 @@ from .transforms_params import TransformParams
 from .transform_path import TransformPath
 from .model_estimator import ModelEstimator
 from .model_report import ModelReport
-from .predict_config import PredictParams
+from .predict_config_params import PredictParams
 
 __all__ = ["SplittingParams",
            "FeatureParams",

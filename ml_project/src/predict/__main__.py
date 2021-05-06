@@ -10,7 +10,7 @@ import pandas as pd
 import yaml
 
 from ..data.data_transformer import DatasetTransformer
-from ..predict import read_config, load_estimator, load_features
+from .predict_utils import read_config, load_estimator, load_features
 
 logger = logging.getLogger("predict.main")
 
