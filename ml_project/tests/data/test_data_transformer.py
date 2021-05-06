@@ -1,8 +1,7 @@
-import logging.config
 import os
+from textwrap import dedent
 
 import pytest
-import yaml
 from hydra.experimental import compose, initialize_config_dir
 
 from src.classes import FeatureParams, TransformPath, \
@@ -12,28 +11,20 @@ from ..constats import FAKE_DATASET_SIZE, FAKE_DATASET_TRANSFORM_COLUMNS
 from ..fake_data import make_data, CATEGORICAL_FEATURES, \
     NUMERICAL_FEATURES, TARGET_FEATURES
 
-log_path = "./configs/log_test.yaml"
-if os.path.exists(log_path):
-    with open(log_path, "r") as log_config:
-        log_config = yaml.safe_load(log_config)
-        logging.config.dictConfig(log_config)
-
-logger = logging.getLogger("test.data_transformer")
-
 
 @pytest.fixture()
 def transform_params(tmpdir) -> TransformParams:
-    yaml_conf = """
-numerical_transform:
-    _target_: "sklearn.preprocessing.MinMaxScaler"
-numerical_parameters:
-    copy: True
-categorical_transform:
-    _target_: "sklearn.preprocessing.OneHotEncoder"
-categorical_parameters:
-    handle_unknown: "ignore"
-    sparse: False
-    """
+    yaml_conf = dedent("""\
+        numerical_transform:
+            _target_: "sklearn.preprocessing.MinMaxScaler"
+        numerical_parameters:
+            copy: True
+        categorical_transform:
+            _target_: "sklearn.preprocessing.OneHotEncoder"
+        categorical_parameters:
+            handle_unknown: "ignore"
+            sparse: False
+    """)
 
     tmp_file = tmpdir.join("test_dataset_transform.yaml")
 

@@ -3,8 +3,11 @@ Main module for train models
 """
 import logging.config
 import os
+from typing import Tuple
 
 import hydra
+import numpy as np
+import pandas as pd
 import yaml
 
 from ..utils import make_path
@@ -17,24 +20,9 @@ from ..model import build_model, dump_model
 logger = logging.getLogger("train.main")
 
 
-@hydra.main(config_path=os.path.join("..", "..", "configs"),
-            config_name="train")
-def train_pipeline(cfg: ConfigParams = None) -> None:
-    """
-    Main train pipeline.
-    Parameters read from YAML-file.
-    For run with custom parameters usage --config-name=config_name and
-    --config-path=config_path (absolute or relative)
-    """
-
-    log_path = make_path(cfg.log_path)
-    if os.path.exists(log_path):
-        with open(log_path, "r") as log_config:
-            log_config = yaml.safe_load(log_config)
-            logging.config.dictConfig(log_config)
-
-    logger.info("Start train pipeline")
-
+def get_data(cfg: ConfigParams) -> \
+        Tuple[pd.DataFrame, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """ Load and transform data for train """
     data_df = read_data(cfg.input_data_path)
 
     check_df, cat_error, num_error = check_data(data_df, cfg.features)
@@ -56,6 +44,29 @@ def train_pipeline(cfg: ConfigParams = None) -> None:
 
     y_train = train_df[cfg.features.target_col].values
     y_test = test_df[cfg.features.target_col].values
+
+    return data_df, x_train, y_train, x_test, y_test
+
+
+@hydra.main(config_path=os.path.join("..", "..", "configs"),
+            config_name="train")
+def train_pipeline(cfg: ConfigParams = None) -> None:
+    """
+    Main train pipeline.
+    Parameters read from YAML-file.
+    For run with custom parameters usage --config-name=config_name and
+    --config-path=config_path (absolute or relative)
+    """
+
+    log_path = make_path(cfg.log_path)
+    if os.path.exists(log_path):
+        with open(log_path, "r") as log_config:
+            log_config = yaml.safe_load(log_config)
+            logging.config.dictConfig(log_config)
+
+    logger.info("Start train pipeline")
+
+    data_df, x_train, y_train, x_test, y_test = get_data(cfg)
 
     model = build_model(cfg.models)
     model.fit(x_train, y_train)
