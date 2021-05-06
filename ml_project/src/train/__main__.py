@@ -82,6 +82,7 @@ def train_pipeline(cfg: ConfigParams) -> NoReturn:
 @hydra.main(config_path=os.path.join("..", "..", "configs"),
             config_name="train")
 def main(cfg: ConfigParams = None):
+    """ Proxy for main train pipeline """
     train_pipeline(cfg)
 
 
