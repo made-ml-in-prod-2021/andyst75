@@ -8,12 +8,10 @@ import pandas as pd
 import numpy as np
 
 import hydra
-from omegaconf import DictConfig
 
 from sklearn.base import BaseEstimator, TransformerMixin
 
-from ..classes import TransformParams, FeatureParams, TransformPath, \
-    TransformEstimator
+from ..classes import TransformParams, FeatureParams, TransformPath
 from ..utils import dump_object, load_object
 
 logger = logging.getLogger("data.data_transformer")
