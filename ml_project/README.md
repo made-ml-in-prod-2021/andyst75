@@ -100,4 +100,57 @@ python -m src.predict --config-path=configs/predict_nb.yaml
 12 | ~~Настроен CI(прогон тестов, линтера) на основе github actions~~  | 3 балла (доп баллы)
 13 | ~~Проведите самооценку, опишите, в какое колво баллов по вашему мнению стоит оценить вашу работу и почему~~ | 1 (доп баллы)
 
+Самооценка: считаю, что выполнил работу на максимальный балл.
 
+
+Проект имеет модульную структуру, модель для обучения и трансформеры задаются в конфигурационных файлах и могут быть любыми (установленные в окружении и быть наследниками от sklearn.base.BaseEstimator)
+Есть инструкция по запуску тестов и основного функционала.
+Настроены проверки на гитхабе при пуллинге проекта.
+
+Качество кода (pylint): 9.89
+
+Покрытие тестами(pytest): 98.10%
+
+
+Project structure
+------------
+
+    ├── README.md          <- The top-level README for developers using this project.
+    │
+    ├── LICENSE            <- License.
+    │
+    ├── requirements.txt   <- The requirements file for reproducing the analysis environment.
+    │
+    ├── setup.py           <- File for install
+    │
+    ├── configs            <- Configuration files.
+    │
+    ├── data
+    │   └── raw            <- The original, immutable data dump.
+    │
+    ├── logs               <- Logs.
+    │
+    ├── models             <- Trained and serialized models and transformers.
+    │
+    ├── notebooks          <- Jupyter notebooks.
+    │
+    ├── outputs            <- Outputs from hydra and model predict.
+    │
+    ├── reports            <- Report from training model.
+    │
+    └── src                <- Source code for use in this project.
+    │   ├── __init__.py    <- Makes src a Python module
+    │   │
+    │   ├── classes        <- configuration dataclasses for type checking
+    │   │
+    │   ├── data           <- code to generate and transform data
+    │   │
+    │   ├── model          <- code to work with models
+    │   │
+    │   ├── predict        <- code to work with predict
+    │   │
+    │   ├── train          <- code to work with train
+    │   │
+    │   └── utils          <- miscellaneous util functions
+    │
+    └── tests              <- unit tests
