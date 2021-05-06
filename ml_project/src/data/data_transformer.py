@@ -8,10 +8,12 @@ import pandas as pd
 import numpy as np
 
 import hydra
+from omegaconf import DictConfig
 
 from sklearn.base import BaseEstimator, TransformerMixin
 
-from ..classes import TransformParams, FeatureParams, TransformPath
+from ..classes import TransformParams, FeatureParams, TransformPath, \
+    TransformEstimator
 from ..utils import dump_object, load_object
 
 logger = logging.getLogger("data.data_transformer")
@@ -41,7 +43,7 @@ class DatasetTransformer(BaseEstimator, TransformerMixin):
             logger.debug("Loading transforms")
             self.categorical = load_object(transform_path.categorical)
             self.numerical = load_object(transform_path.numerical)
-        else:
+        elif trans_param:
             logger.debug("Create instance transforms")
             self.categorical = \
                 hydra.utils.instantiate(trans_param.categorical_transform,
@@ -49,6 +51,10 @@ class DatasetTransformer(BaseEstimator, TransformerMixin):
             self.numerical = \
                 hydra.utils.instantiate(trans_param.numerical_transform,
                                         **trans_param.numerical_parameters)
+        else:
+            msg_error = "Both transform_path and trans_param is None"
+            logger.error(msg_error)
+            raise NotImplementedError(msg_error)
 
         logger.info("Finish init transforms")
 

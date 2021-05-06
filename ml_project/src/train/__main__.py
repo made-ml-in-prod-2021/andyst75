@@ -46,7 +46,8 @@ def train_pipeline(cfg: ConfigParams = None) -> None:
 
     train_df, test_df = split_train_val_data(data_df, cfg.split)
 
-    ft_transforms = DatasetTransformer(cfg.features, cfg.models.transforms)
+    ft_transforms = DatasetTransformer(cfg.features,
+                                       trans_param=cfg.models.transforms)
     ft_transforms.fit(train_df)
     ft_transforms.dump(cfg.transform_path)
 
