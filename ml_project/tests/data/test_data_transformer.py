@@ -72,8 +72,8 @@ def test_create_dataset_transformer_fail():
         DatasetTransformer(feature_params)
 
 
-def test_create_dataset_transformer(transform_params,
-                                    transform_path):
+def test_create_dataset_transformer(transform_params: TransformParams,
+                                    transform_path: TransformPath):
     feature_params = FeatureParams(target_col=TARGET_FEATURES,
                                    categorical_features=CATEGORICAL_FEATURES,
                                    numerical_features=NUMERICAL_FEATURES
