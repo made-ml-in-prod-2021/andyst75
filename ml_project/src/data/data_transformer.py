@@ -41,6 +41,7 @@ class DatasetTransformer(BaseEstimator, TransformerMixin):
             logger.debug("Loading transforms")
             self.categorical = load_object(transform_path.categorical)
             self.numerical = load_object(transform_path.numerical)
+            self.require_fit = False
         elif trans_param:
             logger.debug("Create instance transforms")
             self.categorical = \
@@ -49,6 +50,7 @@ class DatasetTransformer(BaseEstimator, TransformerMixin):
             self.numerical = \
                 hydra.utils.instantiate(trans_param.numerical_transform,
                                         **trans_param.numerical_parameters)
+            self.require_fit = True
         else:
             msg_error = "Both transform_path and trans_param is None"
             logger.error(msg_error)
@@ -71,6 +73,7 @@ class DatasetTransformer(BaseEstimator, TransformerMixin):
         self.numerical.fit(data[self.numerical_features].values)
         logger.debug("Finish fitting numerical data")
 
+        self.require_fit = False
         logger.info("Finish fitting data")
         return self
 
@@ -80,6 +83,11 @@ class DatasetTransformer(BaseEstimator, TransformerMixin):
         """
 
         logger.info("Start transform data")
+
+        if self.require_fit:
+            msg_error = "Transform not fitted"
+            logger.error(msg_error)
+            raise RuntimeError(msg_error)
 
         logger.debug("Start transform categorical data")
         num_scaler = \
