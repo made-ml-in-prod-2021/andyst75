@@ -39,7 +39,7 @@ def test_check_data():
         'numerical_features': NUMERICAL_FEATURES,
     }
     feature_params = FeatureParams(**param)
-    check_result, categorical, numerical = check_data(data, feature_params)
+    check_result, _, _ = check_data(data, feature_params)
     assert check_result
 
 
