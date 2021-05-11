@@ -1,0 +1,15 @@
+host: '0.0.0.0'
+port: 8000
+
+log_config: configs/log_app.yaml
+
+model: models/model.pkl
+
+transform_path:
+  numerical: "models/numerical.pkl"
+  categorical: "models/categorical.pkl"
+
+features: configs/features/5cat_8num.yaml
+
+data_path: data/heart.csv
+
