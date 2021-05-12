@@ -1,21 +1,17 @@
+import logging.config
+
 import numpy as np
 import pandas as pd
 
-import logging.config
-
 from sklearn.base import BaseEstimator
-from src.classes import FeatureParams
+from src.classes import FeatureParams, AppRequest
+from src.data import DatasetTransformer, check_features
 
-from ..classes import PredictParams
-
-from ..data import DatasetTransformer
 
 logger = logging.getLogger("app.predict")
 
 
-def predict(config: PredictParams,
-            model: BaseEstimator,
-            features: FeatureParams,
+def predict(model: BaseEstimator,
             transformer: DatasetTransformer,
             data_df: pd.DataFrame) -> np.ndarray:
     """ Predict function. """
@@ -33,3 +29,43 @@ def predict(config: PredictParams,
     logger.info("Finish predict")
 
     return y_pred
+
+
+def check_request(request: dict, features: FeatureParams) -> pd.DataFrame:
+    try:
+        app_request = AppRequest(**request)
+    except Exception as error:
+        msg_err = f"Bad request structure: {str(error)}"
+        logger.error(msg_err)
+        raise ValueError(msg_err) from error
+
+    check_result, categorical, numerical = check_features(
+        app_request.features,
+        features.categorical_features,
+        features.numerical_features)
+
+    if not check_result:
+        msg_err = f"Not found features: {categorical | numerical}"
+        logger.error(msg_err)
+        raise ValueError(msg_err)
+
+    if len(app_request.data) == 0:
+        msg_err = "Empty data"
+        logger.error(msg_err)
+        raise ValueError(msg_err)
+
+    try:
+        data = np.array(app_request.data)
+    except Exception as error:
+        msg_err = "Incorrect data structure"
+        logger.error(msg_err)
+        raise ValueError(msg_err) from error
+
+    if data.shape[1] != len(app_request.features):
+        msg_err = "Feature columns and Data columns is different"
+        logger.error(msg_err)
+        raise ValueError(msg_err)
+
+    data_df = pd.DataFrame(data, columns=app_request.features)
+
+    return data_df

@@ -60,4 +60,3 @@ def check_data(data_df: pd.DataFrame, features: FeatureParams) -> \
     return (check_result,
             categorical,
             numerical)
-

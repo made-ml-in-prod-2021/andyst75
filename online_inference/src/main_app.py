@@ -3,34 +3,26 @@ Module for build and save predict
 """
 import logging.config
 import os
-from typing import List
 
 import click
-import numpy as np
-import pandas as pd
 import yaml
-import json
 
 import uvicorn
 from fastapi import FastAPI
-from fastapi.responses import PlainTextResponse, JSONResponse
-from omegaconf import OmegaConf
 from sklearn.base import BaseEstimator
-from pydantic import parse_obj_as
+from fastapi.responses import PlainTextResponse
 
-from .classes import PredictParams, FeatureParams
-from .data import DatasetTransformer, check_features
-from .predict import predict
-
-from .classes import AppResponse, AppRequest
+from .classes import PredictParams, FeatureParams, AppResponse
+from .data import DatasetTransformer
+from .predict import predict, check_request
 from .utils import read_config, load_estimator, load_features
 
-app = FastAPI()
-app_config: PredictParams
-model: BaseEstimator
-features: FeatureParams
-transformer: DatasetTransformer
+APP_CONFIG: PredictParams
+MODEL: BaseEstimator
+FEATURES: FeatureParams
+TRANSFORMER: DatasetTransformer
 
+app = FastAPI()
 logger = logging.getLogger("app.main")
 
 
@@ -39,39 +31,11 @@ def app_predict(request: dict):
     logger.debug('Start request')
 
     try:
-        app_request = AppRequest(**request)
-    except Exception as e:
-        msg_err = f"Bad request structure: {str(e)}"
-        logger.error(msg_err)
-        return PlainTextResponse(msg_err, status_code=400)
+        data_df = check_request(request, FEATURES)
+    except Exception as error:
+        return PlainTextResponse(str(error), status_code=400)
 
-    check_result, categorical, numerical = check_features(
-        app_request.features,
-        features.categorical_features,
-        features.numerical_features)
-
-    if not check_result:
-        err_msg = f"Not found features: {categorical | numerical}"
-        return PlainTextResponse(err_msg, status_code=400)
-
-    if len(app_request.data) == 0:
-        err_msg = "Empty data"
-        logger.error(err_msg)
-        return PlainTextResponse(err_msg, status_code=400)
-
-    try:
-        data = np.array(app_request.data)
-    except Exception as e:
-        logger.error(str(e))
-        return PlainTextResponse(str(e), status_code=400)
-
-    if data.shape[1] != len(app_request.features):
-        err_msg = f"Feature columns and Data columns is different"
-        logger.error(err_msg)
-        return PlainTextResponse(err_msg, status_code=400)
-
-    data_df = pd.DataFrame(data, columns=app_request.features)
-    predit_target = predict(app_config, model, features, transformer, data_df)
+    predit_target = predict(MODEL, TRANSFORMER, data_df)
 
     response = AppResponse(predict=predit_target.tolist())
 
@@ -80,7 +44,7 @@ def app_predict(request: dict):
 
 @app.get("/")
 def app_root():
-    print(app_config)
+    print(APP_CONFIG)
     return "Prediction Heart Disease UCI"
 
 
@@ -101,17 +65,16 @@ def main(config_path=None, host=None, port=None):
 
     logger.info("Running app on %s with port %s", config.host, config.port)
 
-    global app_config, model, features, transformer
-
-    app_config = config
+    global APP_CONFIG, MODEL, FEATURES, TRANSFORMER
+    APP_CONFIG = config
 
     logger.info("Load model")
-    model = load_estimator(config.model)
+    MODEL = load_estimator(config.model)
 
     logger.debug("Load features")
-    features = load_features(config.features)
+    FEATURES = load_features(config.features)
 
-    transformer = DatasetTransformer(features,
+    TRANSFORMER = DatasetTransformer(FEATURES,
                                      transform_path=config.transform_path)
 
     uvicorn.run(app, host=config.host, port=config.port)

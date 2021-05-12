@@ -4,7 +4,7 @@ Dataclass for predict config parameters (from YAML-file)
 
 from dataclasses import dataclass, field
 
-from ..classes import TransformPath
+from src.classes import TransformPath
 
 
 @dataclass()
