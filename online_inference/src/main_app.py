@@ -5,12 +5,12 @@ import logging.config
 import os
 
 import click
-import yaml
-
+import pandas as pd
 import uvicorn
+import yaml
 from fastapi import FastAPI
-from sklearn.base import BaseEstimator
 from fastapi.responses import PlainTextResponse
+from sklearn.base import BaseEstimator
 
 from .classes import PredictParams, FeatureParams, AppResponse
 from .data import DatasetTransformer
@@ -28,13 +28,15 @@ logger = logging.getLogger("app.main")
 
 @app.post("/predict", response_model=AppResponse)
 def app_predict(request: dict):
+    """ Predict by request """
     logger.debug('Start request')
 
     try:
-        data_df = check_request(request, FEATURES)
+        data, app_request = check_request(request, FEATURES)
     except Exception as error:
         return PlainTextResponse(str(error), status_code=400)
 
+    data_df = pd.DataFrame(data, columns=app_request.features)
     predit_target = predict(MODEL, TRANSFORMER, data_df)
 
     response = AppResponse(predict=predit_target.tolist())
@@ -44,6 +46,7 @@ def app_predict(request: dict):
 
 @app.get("/")
 def app_root():
+    """  """
     print(APP_CONFIG)
     return "Prediction Heart Disease UCI"
 
@@ -55,7 +58,6 @@ def app_root():
 @click.option("-h", "--host", default=None)
 @click.option("-p", "--port", default=None)
 def main(config_path=None, host=None, port=None):
-
     config = read_config(config_path, host, port)
 
     if os.path.exists(config.log_config):

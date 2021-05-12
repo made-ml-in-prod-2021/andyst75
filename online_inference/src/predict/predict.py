@@ -1,12 +1,12 @@
 import logging.config
+from typing import Tuple
 
 import numpy as np
 import pandas as pd
-
 from sklearn.base import BaseEstimator
+
 from src.classes import FeatureParams, AppRequest
 from src.data import DatasetTransformer, check_features
-
 
 logger = logging.getLogger("app.predict")
 
@@ -31,7 +31,9 @@ def predict(model: BaseEstimator,
     return y_pred
 
 
-def check_request(request: dict, features: FeatureParams) -> pd.DataFrame:
+def check_request(request: dict, features: FeatureParams) \
+        -> Tuple[np.ndarray, AppRequest]:
+    """ Check http-request """
     try:
         app_request = AppRequest(**request)
     except Exception as error:
@@ -66,6 +68,4 @@ def check_request(request: dict, features: FeatureParams) -> pd.DataFrame:
         logger.error(msg_err)
         raise ValueError(msg_err)
 
-    data_df = pd.DataFrame(data, columns=app_request.features)
-
-    return data_df
+    return data, app_request

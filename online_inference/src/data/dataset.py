@@ -3,7 +3,7 @@ Utils for working with dataset
 """
 import logging
 import os
-from typing import Set, List
+from typing import Set, List, Tuple
 
 import pandas as pd
 
@@ -31,7 +31,8 @@ def read_data(path: str) -> pd.DataFrame:
 
 def check_features(data_features: List[str],
                    categorical_features: List[str],
-                   numerical_features: List[str]):
+                   numerical_features: List[str]) -> Tuple[bool, set, set]:
+    """ Check features """
 
     columns_set = set(data_features)
     categorical = set(categorical_features) - columns_set
@@ -45,7 +46,7 @@ def check_features(data_features: List[str],
 
 
 def check_data(data_df: pd.DataFrame, features: FeatureParams) -> \
-        (bool, Set[str], Set[str]):
+        Tuple[bool, Set[str], Set[str]]:
     """ Check dataframe for contains some features """
 
     logger.info("Start check data")
