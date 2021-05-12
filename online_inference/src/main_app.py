@@ -69,8 +69,6 @@ def app_predict(request: dict, config: Settings = Depends(get_setting)):
     """ Predict by request """
     logger.debug('Start request')
 
-    print("predict")
-
     try:
         data, app_request = check_request(request, config.features)
     except Exception as error:
