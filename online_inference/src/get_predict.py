@@ -84,6 +84,7 @@ def main(data_path: str = None, request_url: str = None) -> Optional[Any]:
     check_answer(response_data)
 
     logger.info("Finish predict by http-request")
+    print("Predict success")
 
 
 if __name__ == "__main__":
