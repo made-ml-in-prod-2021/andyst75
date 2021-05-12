@@ -10,6 +10,3 @@ transform_path:
   categorical: "models/categorical.pkl"
 
 features: configs/features/5cat_8num.yaml
-
-data_path: data/heart.csv
-

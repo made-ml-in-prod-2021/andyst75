@@ -21,5 +21,3 @@ class PredictParams:
 
     transform_path: TransformPath = None
     features: str = field(default="configs/features/5cat_8num.yaml")
-
-    data_path: str = field(default_factory=str)

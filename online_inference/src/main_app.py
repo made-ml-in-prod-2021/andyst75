@@ -46,7 +46,7 @@ def app_predict(request: dict):
 
 @app.get("/")
 def app_root():
-    """  """
+    """ Root directory """
     print(APP_CONFIG)
     return "Prediction Heart Disease UCI"
 
