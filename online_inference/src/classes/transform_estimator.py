@@ -2,7 +2,7 @@
 Dataclass for categorical/numerical transform estimator
 """
 
-from dataclasses import dataclass, MISSING
+from dataclasses import dataclass
 from sklearn.base import BaseEstimator
 
 

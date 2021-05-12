@@ -1,17 +1,14 @@
 """
 Module for data transform
 """
-from typing import NoReturn
 import logging
 
 import pandas as pd
 import numpy as np
 
-import hydra
-
 from sklearn.base import BaseEstimator, TransformerMixin
 
-from src.classes import TransformParams, FeatureParams, TransformPath
+from src.classes import FeatureParams, TransformPath
 from src.utils import load_estimator
 
 logger = logging.getLogger("data.data_transformer")

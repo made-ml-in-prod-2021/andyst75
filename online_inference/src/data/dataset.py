@@ -2,13 +2,12 @@
 Utils for working with dataset
 """
 import logging
-import os
 from typing import Set, List, Tuple
 
 import pandas as pd
 
 from src.classes import FeatureParams
-from src.utils import make_path
+
 
 logger = logging.getLogger("data.dataset")
 
