@@ -13,22 +13,6 @@ from src.utils import make_path
 logger = logging.getLogger("data.dataset")
 
 
-def read_data(path: str) -> pd.DataFrame:
-    """ Read source data in pandas dataframe """
-    logger.info("Start reading data from %s", path)
-    data_path = make_path(path)
-
-    if os.path.exists(data_path):
-        data = pd.read_csv(data_path)
-    else:
-        error_msg = f"Data path not exists: {path}"
-        logger.error(error_msg)
-        raise FileNotFoundError(error_msg)
-
-    logger.info("Finish read data from %s", path)
-    return data
-
-
 def check_features(data_features: List[str],
                    categorical_features: List[str],
                    numerical_features: List[str]) -> Tuple[bool, set, set]:

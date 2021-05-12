@@ -26,7 +26,6 @@ class DatasetTransformer(BaseEstimator, TransformerMixin):
 
     def __init__(self,
                  feature_param: FeatureParams,
-                 trans_param: TransformParams = None,
                  transform_path: TransformPath = None):
         """
         Load fitted transform if TransformPath is not None
@@ -41,16 +40,6 @@ class DatasetTransformer(BaseEstimator, TransformerMixin):
             logger.debug("Loading transforms")
             self.categorical = load_estimator(transform_path.categorical)
             self.numerical = load_estimator(transform_path.numerical)
-            self.require_fit = False
-        elif trans_param:
-            logger.debug("Create instance transforms")
-            self.categorical = \
-                hydra.utils.instantiate(trans_param.categorical_transform,
-                                        **trans_param.categorical_parameters)
-            self.numerical = \
-                hydra.utils.instantiate(trans_param.numerical_transform,
-                                        **trans_param.numerical_parameters)
-            self.require_fit = True
         else:
             msg_error = "Both transform_path and trans_param is None"
             logger.error(msg_error)
@@ -58,36 +47,10 @@ class DatasetTransformer(BaseEstimator, TransformerMixin):
 
         logger.info("Finish init transforms")
 
-    def fit(self, data: pd.DataFrame) -> NoReturn:
-        """
-        Fit transforms on data
-        """
-
-        logger.info("Start fitting data")
-
-        logger.debug("Start fitting categorical data")
-        self.categorical.fit(data[self.categorical_features].values)
-        logger.debug("Finish fitting categorical data")
-
-        logger.debug("Start fitting numerical data")
-        self.numerical.fit(data[self.numerical_features].values)
-        logger.debug("Finish fitting numerical data")
-
-        self.require_fit = False
-        logger.info("Finish fitting data")
-        return self
-
     def transform(self, data: pd.DataFrame) -> np.ndarray:
         """
         Transform data
         """
-
-        logger.info("Start transform data")
-
-        if self.require_fit:
-            msg_error = "Transform not fitted"
-            logger.error(msg_error)
-            raise RuntimeError(msg_error)
 
         logger.debug("Start transform categorical data")
         num_scaler = \

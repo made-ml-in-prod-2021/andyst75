@@ -12,4 +12,4 @@ class TransformEstimator:
     Dataclass for create instance of transform estimator
     """
 
-    _target_: BaseEstimator = MISSING
+    _target_: BaseEstimator

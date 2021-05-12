@@ -10,6 +10,8 @@ import requests
 
 logger = logging.getLogger("get_predict")
 
+DEFAULT_SUCCESS_STATUS_CODE = 200
+
 
 @click.command()
 @click.option("-d", "--data-path",
@@ -40,7 +42,7 @@ def main(data_path: str = None, request_url: str = None) -> NoReturn:
 
     logger.debug("Response http-code: %s", str(response.status_code))
 
-    if response.status_code != 200:
+    if response.status_code != DEFAULT_SUCCESS_STATUS_CODE:
         msg_err = f"Wrong response code: {response.status_code}"
         logger.error(msg_err)
         raise RuntimeError(msg_err)

@@ -1,8 +1,7 @@
 """ Init for dataset utils """
-from .dataset import read_data, check_data, check_features
+from .dataset import check_data, check_features
 from .data_transformer import DatasetTransformer
 
-__all__ = ["read_data",
-           "check_features",
+__all__ = ["check_features",
            "check_data",
            "DatasetTransformer"]

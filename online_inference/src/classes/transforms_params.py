@@ -2,7 +2,8 @@
 Dataclass for transform estimator and parameters (from YAML-file)
 """
 
-from dataclasses import dataclass, field, MISSING
+from dataclasses import dataclass, field
+from typing import Union
 
 from .transform_estimator import TransformEstimator
 
@@ -13,7 +14,8 @@ class TransformParams:
     Dataclass for transform estimator and parameters
     """
 
-    numerical_transform: TransformEstimator = MISSING
-    categorical_transform: TransformEstimator = MISSING
+    numerical_transform: Union[None, TransformEstimator] = field(default=None)
+    categorical_transform: Union[None, TransformEstimator] = \
+        field(default=None)
     numerical_parameters: dict = field(default_factory=dict)
     categorical_parameters: dict = field(default_factory=dict)
