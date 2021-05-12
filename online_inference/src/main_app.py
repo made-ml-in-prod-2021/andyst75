@@ -3,6 +3,7 @@ Module for build and save predict
 """
 import logging.config
 import os
+from typing import NoReturn
 
 import click
 import pandas as pd
@@ -57,7 +58,7 @@ def app_root():
               required=True, show_default=True)
 @click.option("-h", "--host", default=None)
 @click.option("-p", "--port", default=None)
-def main(config_path=None, host=None, port=None):
+def main(config_path=None, host=None, port=None) -> NoReturn:
     config = read_config(config_path, host, port)
 
     if os.path.exists(config.log_config):
