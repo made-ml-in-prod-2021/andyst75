@@ -3,12 +3,12 @@ Utils for working with dataset
 """
 import logging
 import os
-from typing import Set
+from typing import Set, List
 
 import pandas as pd
 
-from ..classes import FeatureParams
-from ..utils import make_path
+from src.classes import FeatureParams
+from src.utils import make_path
 
 logger = logging.getLogger("data.dataset")
 
@@ -29,16 +29,31 @@ def read_data(path: str) -> pd.DataFrame:
     return data
 
 
+def check_features(data_features: List[str],
+                   categorical_features: List[str],
+                   numerical_features: List[str]):
+
+    columns_set = set(data_features)
+    categorical = set(categorical_features) - columns_set
+    numerical = set(numerical_features) - columns_set
+
+    check_result = len(categorical) == 0 and len(numerical) == 0
+
+    return (check_result,
+            categorical,
+            numerical)
+
+
 def check_data(data_df: pd.DataFrame, features: FeatureParams) -> \
         (bool, Set[str], Set[str]):
     """ Check dataframe for contains some features """
 
     logger.info("Start check data")
-    columns_set = set(data_df.columns.tolist())
-    categorical = set(features.categorical_features) - columns_set
-    numerical = set(features.numerical_features) - columns_set
 
-    check_result = len(categorical) == 0 and len(numerical) == 0
+    check_result, categorical, numerical = check_features(
+        data_df.columns.tolist(),
+        features.categorical_features,
+        features.numerical_features)
 
     logger.info("Result check data: %s", str(check_result))
 

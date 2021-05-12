@@ -25,8 +25,8 @@ def make_path(path: str) -> str:
 
 
 def read_config(config_path: str,
-                data_path: str = None,
-                output_path: str = None) -> PredictParams:
+                host: str = None,
+                port: str = None) -> PredictParams:
     """ Read main predict config file """
     with open(config_path, "r") as yaml_file:
         yaml_config = yaml.safe_load(yaml_file)
@@ -36,10 +36,10 @@ def read_config(config_path: str,
     if isinstance(config.transform_path, dict):
         config.transform_path = TransformPath(**config.transform_path)
 
-    if data_path:
-        config.data_path = data_path
-    if output_path:
-        config.output_path = output_path
+    if host:
+        config.host = host
+    if port:
+        config.port = port
 
     return config
 

@@ -4,10 +4,13 @@ from .transform_estimator import TransformEstimator
 from .transforms_params import TransformParams
 from .transform_path import TransformPath
 from .predict_config_params import PredictParams
+from .request_response import AppRequest, AppResponse
 
 __all__ = ["FeatureParams",
            "TransformParams",
            "TransformEstimator",
            "TransformPath",
-           "PredictParams"
+           "PredictParams",
+           "AppRequest",
+           "AppResponse"
            ]

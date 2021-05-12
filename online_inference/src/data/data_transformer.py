@@ -11,8 +11,8 @@ import hydra
 
 from sklearn.base import BaseEstimator, TransformerMixin
 
-from ..classes import TransformParams, FeatureParams, TransformPath
-from ..utils import load_estimator
+from src.classes import TransformParams, FeatureParams, TransformPath
+from src.utils import load_estimator
 
 logger = logging.getLogger("data.data_transformer")
 
