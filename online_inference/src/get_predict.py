@@ -2,7 +2,7 @@
 import logging
 import os
 import sys
-from typing import NoReturn, Optional, Any
+from typing import NoReturn
 
 import click
 import numpy as np
