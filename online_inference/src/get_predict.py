@@ -9,6 +9,8 @@ import numpy as np
 import pandas as pd
 import requests
 
+from src.classes import AppResponse
+
 logger = logging.getLogger(__name__)
 
 DEFAULT_SUCCESS_STATUS_CODE = 200
@@ -16,37 +18,35 @@ READ_DATA_ERROR = 1
 INCORRECT_RESPONSE = 2
 
 
-def check_answer(response_data: dict) -> NoReturn:
+def check_answer(response_data: dict, data_lenght: int) -> NoReturn:
     """ Check answer for valid """
 
     if not isinstance(response_data, dict):
         msg_err = f"Wrong response type: {type(response_data)}, expect dict"
         logger.error(msg_err)
-        raise RuntimeError(msg_err)
-
-    if "predict" not in response_data:
-        msg_err = "Predict data not found in response fata"
-        logger.error(msg_err)
-        raise RuntimeError(msg_err)
-
-    data = response_data["predict"]
-    if not isinstance(data, list):
-        msg_err = f"Wrong response data type: {type(data)}, expect list"
-        logger.error(msg_err)
-        raise RuntimeError(msg_err)
+        sys.exit(READ_DATA_ERROR)
 
     try:
-        predict_data = np.array(data)
+        response_struct = AppResponse(**response_data)
+    except ValueError as error:
+        msg_err = "Predict data not found in response: " + str(error)
+        logger.error(msg_err)
+        sys.exit(INCORRECT_RESPONSE)
+
+    data = response_struct.predict
+
+    try:
+        _ = np.array(data)
     except Exception as error:
         msg_err = "Bad data"
         logger.error(msg_err)
-        raise RuntimeError(msg_err) from error
+        sys.exit(INCORRECT_RESPONSE)
 
-    if len(data) != len(predict_data):
+    if len(data) != data_lenght:
         msg_err = "Bad rows count in predict," +\
-                  f"got {predict_data} expect {data}"
+                  f"got {len(data)} expect {data_lenght}"
         logger.error(msg_err)
-        raise RuntimeError(msg_err)
+        sys.exit(INCORRECT_RESPONSE)
 
 
 @click.command()
@@ -84,7 +84,7 @@ def main(data_path: str = None, request_url: str = None):
         sys.exit(INCORRECT_RESPONSE)
 
     response_data = response.json()
-    check_answer(response_data)
+    check_answer(response_data, len(data))
 
     logger.info("Finish predict by http-request")
 
