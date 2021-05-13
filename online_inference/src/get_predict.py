@@ -1,6 +1,7 @@
 """ Get predict by http-request """
 import logging
 import os
+import sys
 from typing import NoReturn, Optional, Any
 
 import click
@@ -8,9 +9,11 @@ import numpy as np
 import pandas as pd
 import requests
 
-logger = logging.getLogger("get_predict")
+logger = logging.getLogger(__name__)
 
 DEFAULT_SUCCESS_STATUS_CODE = 200
+READ_DATA_ERROR = 1
+INCORRECT_RESPONSE = 2
 
 
 def check_answer(response_data: dict) -> NoReturn:
@@ -53,7 +56,7 @@ def check_answer(response_data: dict) -> NoReturn:
 @click.option("-u", "--request_url",
               default="http://0.0.0.0:8000/predict",
               show_default=True)
-def main(data_path: str = None, request_url: str = None) -> Optional[Any]:
+def main(data_path: str = None, request_url: str = None):
     logger.info("Start predict by http-request")
 
     try:
@@ -61,7 +64,7 @@ def main(data_path: str = None, request_url: str = None) -> Optional[Any]:
     except Exception as error:
         msg_err = f"Error read datafile: {str(error)}"
         logger.error(msg_err)
-        raise RuntimeError(msg_err) from error
+        sys.exit(READ_DATA_ERROR)
 
     features = data_df.columns.tolist()
     data = data_df.values.tolist()
@@ -78,13 +81,12 @@ def main(data_path: str = None, request_url: str = None) -> Optional[Any]:
     if response.status_code != DEFAULT_SUCCESS_STATUS_CODE:
         msg_err = f"Wrong response code: {response.status_code}"
         logger.error(msg_err)
-        raise RuntimeError(msg_err)
+        sys.exit(INCORRECT_RESPONSE)
 
     response_data = response.json()
     check_answer(response_data)
 
     logger.info("Finish predict by http-request")
-    print("Predict success")
 
 
 if __name__ == "__main__":
