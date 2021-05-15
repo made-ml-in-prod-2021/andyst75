@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 import requests
 
-from src.classes import AppResponse
+from src.classes import HttpPredictResponse
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +25,7 @@ def check_request_answer(response_data: dict, data_lenght: int) -> NoReturn:
         sys.exit(READ_DATA_ERROR)
 
     try:
-        response_struct = AppResponse(**response_data)
+        response_struct = HttpPredictResponse(**response_data)
     except ValueError as error:
         msg_err = "Predict data not found in response: " + str(error)
         logger.error(msg_err)

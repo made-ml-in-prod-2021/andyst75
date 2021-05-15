@@ -13,7 +13,7 @@ from fastapi import FastAPI, Depends
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import PlainTextResponse
 
-from src.classes import AppResponse, AppRequest
+from src.classes import HttpPredictResponse, HttpPredictRequest
 from src.predict import predict
 from src.utils import read_config
 from src.config import CONFIG_PATH, settings, get_setting, Settings
@@ -30,15 +30,17 @@ async def validation_exception_handler(response, exc):
                              status_code=DEFAULT_VALIDATION_ERROR_CODE)
 
 
-@app.post("/predict", response_model=AppResponse)
-def app_predict(request: AppRequest, config: Settings = Depends(get_setting)):
+@app.post("/predict", response_model=HttpPredictResponse)
+def app_predict(request: HttpPredictRequest,
+                config: Settings = Depends(get_setting)):
+
     """ Predict by request """
     logger.debug('Start request')
 
     data_df = pd.DataFrame(request.data_np, columns=request.features)
     predit_target = predict(settings.model, config.transformer, data_df)
 
-    response = AppResponse(predict=predit_target.tolist())
+    response = HttpPredictResponse(predict=predit_target.tolist())
 
     return response
 

@@ -10,7 +10,7 @@ from src.config import get_setting
 from src.data import check_features
 
 
-class AppRequest(BaseModel):
+class HttpPredictRequest(BaseModel):
     """ Dataclass for http-request """
     features: List[str]
     data: List[List[Union[int, float, str]]]
@@ -66,6 +66,6 @@ class AppRequest(BaseModel):
         arbitrary_types_allowed = True
 
 
-class AppResponse(BaseModel):
+class HttpPredictResponse(BaseModel):
     """ Dataclass for http-response """
     predict: List[int]
