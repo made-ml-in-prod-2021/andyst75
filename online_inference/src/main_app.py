@@ -25,7 +25,7 @@ logger = logging.getLogger("app.main")
 
 
 @app.exception_handler(RequestValidationError)
-async def validation_exception_handler(exc):
+async def validation_exception_handler(response, exc):
     return PlainTextResponse(str(exc),
                              status_code=DEFAULT_VALIDATION_ERROR_CODE)
 
