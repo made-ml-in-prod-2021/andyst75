@@ -38,7 +38,7 @@ def check_answer(response_data: dict, data_lenght: int) -> NoReturn:
     try:
         _ = np.array(data)
     except Exception as error:
-        msg_err = "Bad data"
+        msg_err = "Bad data:" + str(error)
         logger.error(msg_err)
         sys.exit(INCORRECT_RESPONSE)
 
