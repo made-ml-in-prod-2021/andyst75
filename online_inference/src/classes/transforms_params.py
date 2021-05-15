@@ -5,7 +5,7 @@ Dataclass for transform estimator and parameters (from YAML-file)
 from dataclasses import dataclass, field
 from typing import Union
 
-from .transform_estimator import TransformEstimator
+from src.classes import TransformEstimator
 
 
 @dataclass()

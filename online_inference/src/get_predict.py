@@ -18,9 +18,7 @@ READ_DATA_ERROR = 1
 INCORRECT_RESPONSE = 2
 
 
-def check_answer(response_data: dict, data_lenght: int) -> NoReturn:
-    """ Check answer for valid """
-
+def check_request_answer(response_data: dict, data_lenght: int) -> NoReturn:
     if not isinstance(response_data, dict):
         msg_err = f"Wrong response type: {type(response_data)}, expect dict"
         logger.error(msg_err)
@@ -84,7 +82,7 @@ def main(data_path: str = None, request_url: str = None):
         sys.exit(INCORRECT_RESPONSE)
 
     response_data = response.json()
-    check_answer(response_data, len(data))
+    check_request_answer(response_data, len(data))
 
     logger.info("Finish predict by http-request")
 
