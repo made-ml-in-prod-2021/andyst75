@@ -1,0 +1,5 @@
+from .fake_data import make_data, CATEGORICAL_FEATURES,\
+    NUMERICAL_FEATURES, TARGET_FEATURES
+
+__all__ = ["make_data", "CATEGORICAL_FEATURES",
+           "NUMERICAL_FEATURES", "TARGET_FEATURES"]

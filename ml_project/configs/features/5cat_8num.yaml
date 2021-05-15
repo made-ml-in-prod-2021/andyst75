@@ -1,0 +1,17 @@
+# @package _group_
+target_col: "target"
+categorical_features:
+  - "cp"
+  - "thal"
+  - "restecg"
+  - "slope"
+  - "ca"
+numerical_features:
+  - "age"
+  - "sex"
+  - "trestbps"
+  - "chol"
+  - "fbs"
+  - "thalach"
+  - "exang"
+  - "oldpeak"

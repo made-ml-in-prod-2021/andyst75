@@ -1,0 +1,12 @@
+log_config: configs/log_predict.yaml
+
+model: models/model_nb.pkl
+
+transform_path:
+  numerical: "models/numerical_nb.pkl"
+  categorical: "models/categorical_nb.pkl"
+
+features: configs/features/5cat_8num.yaml
+
+data_path: data/raw/heart.csv
+predict_path: outputs/predict_nb.csv
