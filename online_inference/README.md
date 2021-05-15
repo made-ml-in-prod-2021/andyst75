@@ -34,6 +34,10 @@ Run command:
 ~~~
 docker run --network host andyst75/online_inference:v2
 ~~~
+Test running image:
+~~~
+curl -X 'POST' 'http://127.0.0.1:8000/predict' -H 'accept: application/json' -d '{"features":["slope", "oldpeak", "sex", "trestbps", "ca", "restecg", "chol", "age", "thal", "thalach", "fbs", "cp", "exang"], "data":[[1,1,1,1,1,1,1,1,1,1,1,1,1], [0,0,0,0,0,0,0,0,0,0,0,0,0]]}'
+~~~
 
 Login to docker:
 ~~~
