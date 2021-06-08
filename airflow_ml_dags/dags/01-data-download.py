@@ -14,10 +14,11 @@ with DAG(
     start_download = DummyOperator(task_id='begin-download-data')
 
     data_download = DockerOperator(
-        image="airflow-download",
+        image="data-download",
         command=f"--output-dir {RAW_DATA_DIR}",
         network_mode="bridge",
-        task_id="airflow-data-download",
+        do_xcom_push=False,
+        task_id="data-download",
         volumes=[f"{DATA_VOLUME_DIR}:/data"],
     )
 
