@@ -24,6 +24,8 @@ MODELS_DIR = "/data/models/{{ ds }}"
 PREDICT_DIR = "/data/predictions/{{ ds }}"
 MODEL_PATH = os.environ["MODEL_PATH"]
 
+TRAIN_DAG = "02-ml_train_pipeline"
+
 SPLIT_SEED = 1234
 TRAIN_SEED = 1234
 

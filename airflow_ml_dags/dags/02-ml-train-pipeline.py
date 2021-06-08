@@ -7,10 +7,10 @@ from airflow.sensors.filesystem import FileSensor
 
 from dag_constants import START_DATE, DEFAULT_ARGS, \
     DATA_VOLUME_DIR, RAW_DATA_DIR, PROCESSED_DATA_DIR, MODELS_DIR, \
-    TRAIN_SIZE, SPLIT_SEED, TRAIN_SEED
+    TRAIN_SIZE, SPLIT_SEED, TRAIN_SEED, TRAIN_DAG
 
 with DAG(
-        "02-ml_train_pipeline",
+        TRAIN_DAG,
         default_args=DEFAULT_ARGS,
         start_date=START_DATE,
         default_view="graph",
