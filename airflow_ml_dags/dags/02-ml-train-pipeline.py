@@ -16,7 +16,7 @@ with DAG(
         default_view="graph",
         schedule_interval="@weekly",
 ) as dag:
-    start_preprocess = DummyOperator(task_id='begin-preprocess-data')
+    start_preprocess = DummyOperator(task_id='begin-ml-train')
 
     wait_data = FileSensor(
         task_id="wait-for-data",
