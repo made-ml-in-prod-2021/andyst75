@@ -5,7 +5,7 @@ from dag_constants import START_DATE, DEFAULT_ARGS,\
     DATA_VOLUME_DIR, RAW_DATA_DIR
 
 with DAG(
-    "data_download",
+    "01-data_download",
     default_args=DEFAULT_ARGS,
     start_date=START_DATE,
     schedule_interval="@daily",
@@ -14,7 +14,7 @@ with DAG(
     start_download = DummyOperator(task_id='begin-download-data')
 
     data_download = DockerOperator(
-        image="data-download",
+        image="airflow-download",
         command=f"--output-dir {RAW_DATA_DIR}",
         network_mode="bridge",
         do_xcom_push=False,

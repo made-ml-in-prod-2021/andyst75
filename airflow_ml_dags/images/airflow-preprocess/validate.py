@@ -12,7 +12,7 @@ logger = logging.getLogger("validate")
 @click.command("download")
 @click.option("--input-dir", required=True, type=click.Path(file_okay=False))
 @click.option("--models-dir", required=True, type=click.Path(file_okay=False))
-def train(input_dir: str, models_dir: str, seed: int):
+def train(input_dir: str, models_dir: str):
     logger.info("Start validate")
 
     x_test = pd.read_csv(os.path.join(input_dir, "x_test.csv"))

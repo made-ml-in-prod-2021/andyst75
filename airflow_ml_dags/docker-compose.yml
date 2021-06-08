@@ -13,6 +13,7 @@ x-environment: &airflow_environment
   - AIRFLOW__SMTP__SMTP_PORT=587
   - AIRFLOW__SMTP__SMTP_USER=${GMAIL_USER}
   - AIRFLOW__SMTP__SMTP_PASSWORD=${GMAIL_PWD}
+  - MODEL_PATH=${MODEL_PATH}
 
 x-airflow-image: &airflow_image apache/airflow:2.0.0-python3.7
 # ====================================== /AIRFLOW ENVIRONMENT VARIABLES ======================================

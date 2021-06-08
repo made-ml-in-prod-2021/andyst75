@@ -1,4 +1,6 @@
+import os
 from datetime import timedelta
+
 from airflow.utils.dates import days_ago
 
 
@@ -19,6 +21,8 @@ DATA_VOLUME_DIR = "/media/andyst/STORE/Notebook/ml_in_prod/airflow_ml_dags" \
 RAW_DATA_DIR = "/data/raw/{{ ds }}"
 PROCESSED_DATA_DIR = "/data/processed/{{ ds }}"
 MODELS_DIR = "/data/models/{{ ds }}"
+PREDICT_DIR = "/data/predictions/{{ ds }}"
+MODEL_PATH = os.environ["MODEL_PATH"]
 
 SPLIT_SEED = 1234
 TRAIN_SEED = 1234

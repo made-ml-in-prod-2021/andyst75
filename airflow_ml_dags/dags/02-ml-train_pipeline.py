@@ -10,7 +10,7 @@ from dag_constants import START_DATE, DEFAULT_ARGS, \
     TRAIN_SIZE, SPLIT_SEED, TRAIN_SEED
 
 with DAG(
-        "ml_train_pipeline",
+        "02-ml_train_pipeline",
         default_args=DEFAULT_ARGS,
         start_date=START_DATE,
         default_view="graph",
@@ -72,7 +72,7 @@ with DAG(
     validate_model = DockerOperator(
         image="airflow-preprocess",
         command=f"--input-dir {PROCESSED_DATA_DIR} "
-                f"--models-dir {MODELS_DIR} --seed {TRAIN_SEED}",
+                f"--models-dir {MODELS_DIR}",
         network_mode="bridge",
         do_xcom_push=False,
         task_id="validate_model",
