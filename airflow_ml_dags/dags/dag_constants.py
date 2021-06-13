@@ -15,8 +15,7 @@ DEFAULT_ARGS = {
 
 START_DATE = days_ago(14)
 
-DATA_VOLUME_DIR = "/media/andyst/STORE/Notebook/ml_in_prod/airflow_ml_dags" \
-                  "/data"
+DATA_VOLUME_DIR = os.environ["AIRFLOW_VAR_DATA_PATH"]
 
 RAW_DATA_DIR = "/data/raw/{{ ds }}"
 PROCESSED_DATA_DIR = "/data/processed/{{ ds }}"
