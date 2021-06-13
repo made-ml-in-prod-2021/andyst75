@@ -6,7 +6,7 @@ from airflow.providers.docker.operators.docker import DockerOperator
 from airflow.sensors.filesystem import FileSensor
 
 from dag_constants import START_DATE, DEFAULT_ARGS, \
-    DATA_VOLUME_DIR, RAW_DATA_DIR, PROCESSED_DATA_DIR, MODELS_DIR, \
+    DATA_VOLUME_DIR, RAW_DATA_DIR, PROCESSED_DATA_DIR, MODELS_DIR_LAST, \
     TRAIN_SIZE, SPLIT_SEED, TRAIN_SEED, TRAIN_DAG
 
 with DAG(
@@ -61,7 +61,7 @@ with DAG(
     train_model = DockerOperator(
         image="airflow-preprocess",
         command=f"--input-dir {PROCESSED_DATA_DIR} "
-                f"--models-dir {MODELS_DIR} --seed {TRAIN_SEED}",
+                f"--models-dir {MODELS_DIR_LAST} --seed {TRAIN_SEED}",
         network_mode="bridge",
         do_xcom_push=False,
         task_id="train_model",
@@ -72,7 +72,7 @@ with DAG(
     validate_model = DockerOperator(
         image="airflow-preprocess",
         command=f"--input-dir {PROCESSED_DATA_DIR} "
-                f"--models-dir {MODELS_DIR}",
+                f"--models-dir {MODELS_DIR_LAST}",
         network_mode="bridge",
         do_xcom_push=False,
         task_id="validate_model",

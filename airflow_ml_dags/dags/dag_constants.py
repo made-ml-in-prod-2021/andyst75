@@ -20,7 +20,8 @@ DATA_VOLUME_DIR = "/media/andyst/STORE/Notebook/ml_in_prod/airflow_ml_dags" \
 
 RAW_DATA_DIR = "/data/raw/{{ ds }}"
 PROCESSED_DATA_DIR = "/data/processed/{{ ds }}"
-MODELS_DIR = "/data/models/{{ ds }}"
+MODELS_DIR = "/data/models"
+MODELS_DIR_LAST = os.path.join(MODELS_DIR, "{{ ds }}")
 PREDICT_DIR = "/data/predictions/{{ ds }}"
 MODEL_PATH = os.environ["MODEL_PATH"]
 

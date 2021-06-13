@@ -38,8 +38,7 @@ with DAG(
     if last_date is None:
         start_predict >> wait_data
     else:
-        model_path = str(os.path.join(MODELS_DIR[:-8] + last_date,
-                                      "model.pkl"))
+        model_path = str(os.path.join(MODELS_DIR, last_date, "model.pkl"))
         predict = DockerOperator(
             image="airflow-predict",
             command=f"--input-dir {RAW_DATA_DIR} "
