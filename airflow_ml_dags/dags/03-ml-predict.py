@@ -1,6 +1,7 @@
 import os
 
 from airflow import DAG
+from airflow.models import Variable
 from airflow.operators.dummy import DummyOperator
 from airflow.providers.docker.operators.docker import DockerOperator
 from airflow.sensors.filesystem import FileSensor
@@ -15,6 +16,9 @@ with DAG(
         default_view="graph",
         schedule_interval="@daily",
 ) as dag:
+
+    ACTUAL_MODEL_PATH = Variable.get("ACTUAL_MODEL_PATH", MODEL_PATH)
+
     start_predict = DummyOperator(task_id='begin-predict')
 
     wait_data = FileSensor(
@@ -30,7 +34,7 @@ with DAG(
         image="airflow-predict",
         command=f"--input-dir {RAW_DATA_DIR} "
                 f"--output-dir {PREDICT_DIR} "
-                f"--model-path {MODEL_PATH}",
+                f"--model-path {ACTUAL_MODEL_PATH}",
         network_mode="bridge",
         do_xcom_push=False,
         task_id="predict",
