@@ -53,6 +53,11 @@ def app_root(config: Settings = Depends(get_setting)):
     return "Prediction Heart Disease UCI"
 
 
+@app.get("/health")
+def health() -> bool:
+    return not (settings.model is None)
+
+
 @click.command()
 @click.option("-c", "--config-path",
               default=CONFIG_PATH,
