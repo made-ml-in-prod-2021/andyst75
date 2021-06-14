@@ -9,7 +9,7 @@ spec:
     - image: andyst75/online_inference:v2
       name: online-inference-res-probes
       ports:
-        - containerPort: 8001
+        - containerPort: 8000
       resources:
         requests:
           memory: 128Mi
@@ -20,19 +20,19 @@ spec:
       startupProbe:
         httpGet:
           path: /health
-          port: 8001
+          port: 8000
         failureThreshold: 1
         periodSeconds: 10
       livenessProbe:
         httpGet:
           path: /health
-          port: 8001
+          port: 8000
         initialDelaySeconds: 30
         periodSeconds: 10
         failureThreshold: 3
       readinessProbe:
         httpGet:
           path: /health
-          port: 8001
+          port: 8000
         initialDelaySeconds: 30
         periodSeconds: 10
