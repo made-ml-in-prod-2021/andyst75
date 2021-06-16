@@ -7,7 +7,7 @@ metadata:
 spec:
 
   containers:
-    - image: andyst75/online_inference:v2
+    - image: andyst75/online_inference:v3
       name: online-inference-res-probes
 
       ports:
@@ -29,13 +29,13 @@ spec:
           path: /healthz
           port: probe-port
         initialDelaySeconds: 30
-        periodSeconds: 120
+        periodSeconds: 10
         failureThreshold: 5
 
       readinessProbe:
         httpGet:
           path: /healthz
           port: probe-port
-        initialDelaySeconds: 40
+        initialDelaySeconds: 20
         periodSeconds: 5
         failureThreshold: 5
