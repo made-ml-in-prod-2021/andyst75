@@ -12,12 +12,14 @@ import yaml
 from fastapi import FastAPI, Depends
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import PlainTextResponse
+from fastapi.responses import JSONResponse
 
 from src.classes import HttpPredictResponse, HttpPredictRequest
 from src.predict import predict
 from src.utils import read_config
 from src.config import CONFIG_PATH, settings, get_setting, Settings
 
+OK_STATUS_CODE = 200
 DEFAULT_VALIDATION_ERROR_CODE = 400
 
 app = FastAPI()
@@ -53,9 +55,12 @@ def app_root(config: Settings = Depends(get_setting)):
     return "Prediction Heart Disease UCI"
 
 
-@app.get("/health")
-def health() -> bool:
-    return not (settings.model is None)
+@app.get("/healthz")
+def health() -> JSONResponse:
+    return JSONResponse(
+        status_code=OK_STATUS_CODE,
+        content=(not (settings.model is None)),
+    )
 
 
 @click.command()

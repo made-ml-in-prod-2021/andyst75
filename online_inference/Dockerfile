@@ -9,4 +9,6 @@ COPY src/ ./src/
 
 EXPOSE 8000
 
+ENV HOST '0.0.0.0'
+
 CMD ["uvicorn", "src.main_app:app"]
