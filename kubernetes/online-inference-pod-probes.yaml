@@ -7,7 +7,7 @@ metadata:
 spec:
 
   containers:
-    - image: andyst75/online_inference:v3
+    - image: andyst75/online_inference:v5
       name: online-inference-res-probes
 
       ports:
