@@ -3,7 +3,8 @@ Module for build and save predict
 """
 import logging.config
 import os
-import time, datetime
+import time
+import datetime
 from typing import Any, Optional
 
 import click
