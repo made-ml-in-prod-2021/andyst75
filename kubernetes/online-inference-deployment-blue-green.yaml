@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: online-inference-replicaset
+  labels:
+    app: online-inference
+
+spec:
+  replicas: 4
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 0%
+
+  selector:
+    matchLabels:
+      app: online-inference
+  template:
+    metadata:
+      name: online-inference
+      labels:
+        app: online-inference
+
+    spec:
+      containers:
+        - image: andyst75/online_inference:v2
+          name: online-inference
+
+          ports:
+          - name: probe-port
+            containerPort: 8000
+            protocol: TCP
+
+          resources:
+            requests:
+              memory: 128Mi
+              cpu: 500m
+            limits:
+              memory: 256Mi
+              cpu: 800m
+
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: probe-port
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 5
+
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: probe-port
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            failureThreshold: 5
